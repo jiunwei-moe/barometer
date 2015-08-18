@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Barometer Simulator</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="barometer.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="bower_components/fabric/dist/fabric.min.js"></script>
+  </head>
+  <body role="document">
+
+    <div class="container" role="main">
+
+      <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            Barometer Simulator
+          </a>
+        </div>
+      </nav>
+
+      <div class="row">
+
+        <div class="col-md-3 text-center">
+
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Environment Settings</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="environmentSettings">
+
+                <button id="measurement" type="button" class="btn btn-md btn-default">Measurement: Off</button>
+
+                <div class="btn-group" role="group">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="altitudeMenu" data-toggle="dropdown" aria-expanded="true">
+                    Altitude: Sea Level
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="altitudeMenu">
+                    <li role="presentation"><a id="altitudeMystery" role="menuitem" tabindex="-1" href="#" style="color: blue; font-weight: bold;">Mystery</a></li>
+                    <li role="presentation"><a id="altitudeSea" role="menuitem" tabindex="-1" href="#">Sea Level</a></li>
+                    <li role="presentation"><a id="altitude1km" role="menuitem" tabindex="-1" href="#">1 km Above Sea</a></li>
+                    <li role="presentation"><a id="altitude10km" role="menuitem" tabindex="-1" href="#">10 km Above Sea</a></li>
+                  </ul>
+                </div>
+
+                <div class="btn-group" role="group">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="liquidMenu" data-toggle="dropdown" aria-expanded="true">
+                    Liquid: Mercury
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="liquidMenu">
+                    <li role="presentation"><a id="liquidMystery" role="menuitem" tabindex="-1" href="#" style="color: green; font-weight: bold;">Mystery</a></li>
+                    <li role="presentation"><a id="liquidMercury" role="menuitem" tabindex="-1" href="#">Mercury</a></li>
+                    <li role="presentation"><a id="liquidSaltWater" role="menuitem" tabindex="-1" href="#">Salt Water</a></li>
+                    <li role="presentation"><a id="liquidWater" role="menuitem" tabindex="-1" href="#">Water</a></li>
+                    <li role="presentation"><a id="liquidOil" role="menuitem" tabindex="-1" href="#">Oil</a></li>
+                  </ul>
+                </div>
+
+                <div class="btn-group" role="group">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="scaleMenu" data-toggle="dropdown" aria-expanded="true">
+                    Scale: 1 m = 200 pixels
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="scaleMenu">
+                    <li role="presentation"><a id="scale20" role="menuitem" tabindex="-1" href="#">1 m = 20 pixels</a></li>
+                    <li role="presentation"><a id="scale50" role="menuitem" tabindex="-1" href="#">1 m = 50 pixels</a></li>
+                    <li role="presentation"><a id="scale100" role="menuitem" tabindex="-1" href="#">1 m = 100 pixels</a></li>
+                    <li role="presentation"><a id="scale200" role="menuitem" tabindex="-1" href="#">1 m = 200 pixels</a></li>
+                  </ul>
+                </div>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+
+          <div id="checkAltitudePanel" class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Altitude Self-Assessment</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="altitudeSelfAssessment">
+
+                <p><i>Assume &rho; of Air is constant.</i></p>
+
+                <div class="input-group">
+                  <input id="answerAltitude" type="text" class="form-control" placeholder="Mystery Altitude" aria-describedby="altitudeUnit">
+                  <span class="input-group-addon" id="altitudeUnit">m</span>
+                </div>
+
+                <button id="checkAltitude" type="button" class="btn btn-md btn-info">Check Mystery Altitude</button>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+
+          <div id="checkDensityPanel" class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Density Self-Assessment</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="densitySelfAssessment">
+
+                <div class="input-group">
+                  <input id="answerDensity" type="text" class="form-control" placeholder="Mystery Density" aria-describedby="densityUnit">
+                  <span class="input-group-addon" id="densityUnit">kg/m<sup>3</sup></span>
+                </div>
+
+                <button id="checkDensity" type="button" class="btn btn-md btn-success">Check Mystery Density</button>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Add New Tube</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="addNewTube">
+
+                <button id="addPlain" type="button" class="btn btn-md btn-default">Add Plain Tube</button>
+
+                <button id="addSlim" type="button" class="btn btn-md btn-default">Add Slim Tube</button>
+
+                <button id="addZigzag" type="button" class="btn btn-md btn-default">Add Zig-Zag Tube</button>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+
+          <div id="selectedPanel" class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Selected Tube</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="selectedTube">
+
+                <button id="delete" type="button" class="btn btn-md btn-danger">Delete Tube</button>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+          
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Useful Information</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="btn-group-vertical" role="group" aria-label="usefulInformation">
+
+                <p><b>1 atm:</b> 101325.0 Pa<br />
+                <b>&rho; of Air at <abbr title="Standard Temperature and Pressure">STP</abbr>:</b> 1.2754 kg/m<sup>3</sup><br />
+                <b>&rho; of Oil:</b> 920 kg/m<sup>3</sup><br />
+                <b>&rho; of Water:</b> 1000 kg/m<sup>3</sup><br />
+                <b>&rho; of Mercury:</b> 13534 kg/m<sup>3</sup><br />
+                <b>g:</b> 9.80665 m/s<sup>2</sup></p></td>
+
+              </div><!--/.btn-group-vertical-->
+
+            </div><!--/.panel-body-->
+
+          </div><!--/.panel-->
+
+        </div>
+
+        <div class="col-md-9">
+          <div id="measurementText" class="alert alert-info">
+            <p><b>Raw Calculation:</b> <span id="airPressure"></span> <span id="liquidPressure">+ (<span id="depth"></span>) &times; (<span id="density"></span>) &times; (<span id="g"></span>) = <span id="totalPressure"></span></span></p>
+          </div>
+          <div id="canvas-div">
+            <p><canvas id="canvas" width="847" height="600"></canvas></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="barometer.js"></script>
+  </body>
+</html>

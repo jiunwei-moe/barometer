@@ -1,0 +1,8 @@
+{
+  "name": "barometer",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "fabric": "~1.4.13"
+  }
+}

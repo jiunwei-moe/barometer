@@ -1,0 +1,15 @@
+.panel-header
+{
+	font-size: 12px;
+	font-weight: 700;
+	color: #959595;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin: 15px 0 5px 0;
+
+}
+
+#canvas
+{
+	border: 1px solid black;
+}
