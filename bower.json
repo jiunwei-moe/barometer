@@ -1,6 +1,14 @@
 {
   "name": "barometer",
+  "main": "index.html",
   "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "bootstrap": "~3.3.2",
     "fabric": "~1.4.13"
